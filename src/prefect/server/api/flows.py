@@ -15,6 +15,7 @@ from prefect.server.database import PrefectDBInterface, provide_database_interfa
 from prefect.server.schemas.responses import (
     FlowBulkDeleteResponse,
     FlowPaginationResponse,
+    FlowRunStats,
 )
 from prefect.server.utilities.server import PrefectRouter
 from prefect.types._datetime import now
@@ -120,6 +121,29 @@ async def read_flow(
             status_code=status.HTTP_404_NOT_FOUND, detail="Flow not found"
         )
     return flow
+
+
+@router.get("/{id:uuid}/run-stats")
+async def read_flow_run_stats(
+    flow_id: UUID = Path(..., description="The flow id", alias="id"),
+    db: PrefectDBInterface = Depends(provide_database_interface),
+) -> FlowRunStats:
+    """
+    Get run statistics for a flow, grouped by state.
+
+    Returns the total number of flow runs and a breakdown of counts per state type
+    (e.g. COMPLETED, FAILED, CRASHED).
+    """
+    async with db.session_context() as session:
+        flow = await models.flows.read_flow(session=session, flow_id=flow_id)
+        if not flow:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Flow not found"
+            )
+        stats = await models.flows.read_flow_run_stats(
+            session=session, flow_id=flow_id
+        )
+    return FlowRunStats(flow_id=flow_id, **stats)
 
 
 @router.post("/filter")
