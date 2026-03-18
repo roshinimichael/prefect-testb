@@ -1,0 +1,80 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"cancel-test-flow\", \"tags\": []}",
+    "ResponseBody": "{\"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"cancel-test-flow\", \"tags\": [], \"created\": \"2024-01-01T00:00:00Z\", \"updated\": \"2024-01-01T00:00:00Z\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flows/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T01:34:37.462Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"flow_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"cancel-test-run\", \"state\": {\"type\": \"RUNNING\", \"name\": \"Running\"}}",
+    "ResponseBody": "{\"id\": \"7fa12345-1234-5678-b3fc-2c963f66afb7\", \"flow_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"cancel-test-run\", \"state_type\": \"RUNNING\", \"state_name\": \"Running\", \"created\": \"2024-01-01T00:00:00Z\", \"updated\": \"2024-01-01T00:00:00Z\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T01:34:42.525Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"reason\": \"Cancelled by user.\"}",
+    "ResponseBody": "{\"id\": \"7fa12345-1234-5678-b3fc-2c963f66afb7\", \"state\": \"CANCELLING\", \"message\": \"Cancelled by user.\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/7fa12345-1234-5678-b3fc-2c963f66afb7/cancel",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T01:34:48.794Z",
+    "Scheme": "http"
+  }
+]
