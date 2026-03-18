@@ -1,0 +1,80 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "127.0.0.1",
+    "RequestBody": "{\"name\": \"test-cancel-flow-001\"}",
+    "ResponseBody": "{\"id\": \"aaaaaaaa-0000-0000-0000-000000000001\", \"name\": \"test-cancel-flow-001\", \"created\": \"2026-03-18T00:00:00Z\", \"updated\": \"2026-03-18T00:00:00Z\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flows/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T04:14:34.871Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "127.0.0.1",
+    "RequestBody": "{\"flow_id\": \"aaaaaaaa-0000-0000-0000-000000000001\", \"name\": \"test-cancel-run-001\", \"state\": {\"type\": \"SCHEDULED\", \"message\": \"Scheduled for testing\"}}",
+    "ResponseBody": "{\"id\": \"bbbbbbbb-0000-0000-0000-000000000002\", \"flow_id\": \"aaaaaaaa-0000-0000-0000-000000000001\", \"name\": \"test-cancel-run-001\", \"state_type\": \"SCHEDULED\", \"state_name\": \"Scheduled\", \"created\": \"2026-03-18T00:00:00Z\", \"updated\": \"2026-03-18T00:00:00Z\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T04:14:39.924Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "127.0.0.1",
+    "RequestBody": "{\"reason\": \"Cancelled by test\"}",
+    "ResponseBody": "{\"id\": \"bbbbbbbb-0000-0000-0000-000000000002\", \"state\": \"CANCELLING\", \"message\": \"Cancelled by test\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/bbbbbbbb-0000-0000-0000-000000000002/cancel",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-03-18T04:14:44.721Z",
+    "Scheme": "http"
+  }
+]
