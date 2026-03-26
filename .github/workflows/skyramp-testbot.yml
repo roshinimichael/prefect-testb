@@ -1,39 +1,109 @@
 name: Skyramp Testbot
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      # Common source directories
+      - 'src/**'
+      - 'app/**'
+      - 'lib/**'
+      - 'api/**'
+      - 'server/**'
+      - 'backend/**'
+      - 'frontend/**'
+      - 'web/**'
+      - 'core/**'
+      # Monorepo patterns
+      - 'packages/**'
+      - 'apps/**'
+      - 'services/**'
+      # Go conventions
+      - 'cmd/**'
+      - 'pkg/**'
+      - 'internal/**'
+      # Rust workspaces
+      - 'crates/**'
+      # Serverless
+      - 'functions/**'
+      # Frontend framework conventions
+      - 'pages/**'
+      - 'components/**'
+      # Ruby/Rails
+      - 'db/**'
+      - 'config/**'
+      # Common web patterns
+      - 'routes/**'
+      - 'controllers/**'
+      - 'models/**'
+      - 'views/**'
+      - 'handlers/**'
+      - 'middleware/**'
+      # Tests
+      - 'tests/**'
+      - 'test/**'
+      - 'spec/**'
+      # Build and dependency files
+      - 'package.json'
+      - 'package-lock.json'
+      - 'yarn.lock'
+      - 'pnpm-lock.yaml'
+      - 'pyproject.toml'
+      - 'setup.py'
+      - 'setup.cfg'
+      - 'requirements*.txt'
+      - 'Pipfile'
+      - 'poetry.lock'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'pom.xml'
+      - 'build.gradle'
+      - 'build.gradle.kts'
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      - '*.csproj'
+      - '*.sln'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - 'docker-compose.yaml'
+  issue_comment:
+    types: [created]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.issue.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  test-maintenance:
+  testbot:
+    # Only run for pull_request events or issue_comment on PRs mentioning @skyramp-testbot
+    if: >-
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@skyramp-testbot'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      checks: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # Generate a GitHub App installation token to retrigger CI workflows on push
+      # https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        with:
+          app-id: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
+          private-key: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
-      - name: Run Skyramp Testbot
-        uses: skyramp/testbot@shiny/test-recom-update
+      - uses: skyramp/testbot@60aa218498bb71dc5413f65d738ef1444152857a # v0.6.2
         with:
-          skyramp_license_file: ${{ secrets.SKYRAMP_LICENSE }}
-          anthropic_api_key: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
-
-          target_setup_command: './deployment-testbot/setup.sh'
-          target_ready_check_command: 'curl -f http://localhost:4200/api/health'
-          target_ready_check_timeout: 90
-          auth_token_command: './deployment-testbot/get-token.sh'
-          skyramp_mcp_version: next
-
-          test_directory: 'tests'
-          auto_commit: true
-          post_pr_comment: true
-          enable_debug: true
-          commit_message: 'TestBot: update tests for Prefect'
+          skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
+          anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
+          githubToken: ${{ steps.app-token.outputs.token }}
