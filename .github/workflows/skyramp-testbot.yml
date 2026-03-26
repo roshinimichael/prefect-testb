@@ -107,3 +107,13 @@ jobs:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           githubToken: ${{ steps.app-token.outputs.token }}
+          targetSetupCommand: './deployment-testbot/setup.sh'
+          targetReadyCheckCommand: 'curl -f http://localhost:4200/api/health'
+          targetReadyCheckTimeout: 90
+          authTokenCommand: './deployment-testbot/get-token.sh'
+          skyrampMcpVersion: next
+          testDirectory: 'tests'
+          autoCommit: true
+          postPrComment: true
+          enableDebug: true
+          commitMessage: 'TestBot: update tests for Prefect'
