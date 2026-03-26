@@ -330,6 +330,40 @@ async def delete_flows(
 
 
 @db_injector
+async def read_flow_run_stats(
+    db: PrefectDBInterface,
+    session: AsyncSession,
+    flow_id: UUID,
+) -> dict:
+    """
+    Returns run counts grouped by state type for a given flow.
+
+    Args:
+        session: A database session
+        flow_id: a flow id
+
+    Returns:
+        dict with keys 'total' and 'by_state' (state_type -> count)
+    """
+    query = (
+        select(db.FlowRun.state_type, sa.func.count(db.FlowRun.id).label("cnt"))
+        .where(db.FlowRun.flow_id == flow_id)
+        .group_by(db.FlowRun.state_type)
+    )
+    result = await session.execute(query)
+    rows = result.all()
+
+    by_state: dict[str, int] = {}
+    total = 0
+    for state_type, count in rows:
+        key = state_type.value if hasattr(state_type, "value") else str(state_type)
+        by_state[key] = count
+        total += count
+
+    return {"total": total, "by_state": by_state}
+
+
+@db_injector
 async def read_flow_labels(
     db: PrefectDBInterface,
     session: AsyncSession,

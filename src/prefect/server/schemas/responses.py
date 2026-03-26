@@ -709,6 +709,17 @@ class FlowBulkDeleteResponse(PrefectBaseModel):
     deleted: List[UUID] = Field(default_factory=list)
 
 
+class FlowRunStats(PrefectBaseModel):
+    """Run statistics for a flow, grouped by state."""
+
+    flow_id: UUID
+    total: int = Field(default=0, description="Total number of flow runs")
+    by_state: Dict[str, int] = Field(
+        default_factory=dict,
+        description="Run counts keyed by state type (e.g. COMPLETED, FAILED)",
+    )
+
+
 class FlowRunOrchestrationResult(PrefectBaseModel):
     """Per-run result for bulk state operations."""
 
