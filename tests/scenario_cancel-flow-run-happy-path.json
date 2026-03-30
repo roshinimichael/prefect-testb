@@ -1,0 +1,25 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"reason\": \"Cancelled by user.\"}",
+    "ResponseBody": "{\"id\": \"c3d4e5f6-a7b8-9012-cdef-012345678902\", \"state\": \"CANCELLING\", \"message\": \"Cancelled by user.\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/c3d4e5f6-a7b8-9012-cdef-012345678902/cancel",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-03-30T07:34:18.845Z",
+    "Scheme": "http"
+  }
+]
