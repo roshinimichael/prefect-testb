@@ -1,0 +1,71 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"test-flow-1745000000\"}",
+    "ResponseBody": "{\"id\": \"660e8400-e29b-41d4-a716-446655440000\", \"name\": \"test-flow-1745000000\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flows/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-04-20T17:47:31.371Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"flow_id\": \"660e8400-e29b-41d4-a716-446655440000\", \"name\": \"test-run-1745000000\"}",
+    "ResponseBody": "{\"id\": \"770e8400-e29b-41d4-a716-446655440001\", \"flow_id\": \"660e8400-e29b-41d4-a716-446655440000\", \"state_type\": \"SCHEDULED\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-04-20T17:47:31.371Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"reason\": \"Test cancellation\"}",
+    "ResponseBody": "{\"id\": \"770e8400-e29b-41d4-a716-446655440001\", \"state\": \"CANCELLING\", \"message\": \"Test cancellation\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/770e8400-e29b-41d4-a716-446655440001/cancel",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-04-20T17:47:31.371Z",
+    "Scheme": "http"
+  }
+]
