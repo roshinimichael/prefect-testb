@@ -1,0 +1,94 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"test-flow-1714000000\"}",
+    "ResponseBody": "{\"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"test-flow-1714000000\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flows",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-05-04T08:20:55.686Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"flow_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"test-run-1714000000\"}",
+    "ResponseBody": "{\"id\": \"c9b1a2d3-e4f5-6789-bcde-f01234567891\", \"flow_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\", \"name\": \"test-run-1714000000\", \"state_type\": \"SCHEDULED\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-05-04T08:20:55.686Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"state\": {\"type\": \"FAILED\", \"message\": \"Intentional test failure\"}, \"force\": true}",
+    "ResponseBody": "{\"status\": \"ACCEPT\", \"state\": {\"type\": \"FAILED\", \"message\": \"Intentional test failure\"}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/c9b1a2d3-e4f5-6789-bcde-f01234567891/set_state",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-05-04T08:20:55.686Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"parameters\": {}, \"reason\": \"Test retry after failure\"}",
+    "ResponseBody": "{\"id\": \"c9b1a2d3-e4f5-6789-bcde-f01234567891\", \"state\": \"SCHEDULED\", \"message\": \"Test retry after failure\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/c9b1a2d3-e4f5-6789-bcde-f01234567891/retry",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-05-04T08:20:55.686Z",
+    "Scheme": "http"
+  }
+]
