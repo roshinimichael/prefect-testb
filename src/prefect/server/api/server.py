@@ -45,6 +45,7 @@ from typing_extensions import Self
 
 import prefect
 import prefect.server.api as api
+from prefect.server.api import flow_run_retries
 import prefect.settings
 from prefect._internal.compatibility.starlette import status
 from prefect._internal.observability import configure_logfire
@@ -120,6 +121,7 @@ API_ROUTERS = (
     api.ui.task_runs.router,
     api.admin.router,
     api.root.router,
+    flow_run_retries.router,
 )
 
 SQLITE_LOCKED_MSG = "database is locked"
