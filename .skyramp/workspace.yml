@@ -1,0 +1,34 @@
+# Skyramp Workspace Configuration
+workspace:
+  repoName: roshinimichael/prefect-testb
+  repoUrl: https://github.com/roshinimichael/prefect-testb
+metadata:
+  schemaVersion: v1
+  mcpVersion: 0.2.0-rc.1
+  executorVersion: v1.3.24
+  createdAt: "2026-05-25T08:51:15.011Z"
+  updatedAt: "2026-05-25T08:51:15.018Z"
+services:
+  - serviceName: prefect-server-backend
+    language: python
+    framework: pytest
+    testDirectory: tests/skyramp
+    api:
+      schemaPath: http://localhost:4200/api/openapi.json
+      authType: none
+      authHeader: ""
+      baseUrl: http://localhost:4200
+    runtimeDetails:
+      serverStartCommand: docker compose -f deployment-testbot/docker-compose.yml up -d prefect-server
+      runtime: docker
+      dockerNetwork: deployment-testbot_default
+  - serviceName: prefect-ui-v2-frontend
+    language: typescript
+    framework: playwright
+    testDirectory: ui-v2/e2e
+    api:
+      authType: none
+      authHeader: ""
+      baseUrl: http://localhost:5173
+    runtimeDetails:
+      runtime: local

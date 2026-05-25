@@ -1,0 +1,94 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"retry-test-flow-1748169600\"}",
+    "ResponseBody": "{\"id\": \"aaaaaaaa-0000-0000-0000-000000000000\", \"name\": \"retry-test-flow-1748169600\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flows/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-05-25T08:57:00.018Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"name\": \"retry-test-run-1748169600\", \"flow_id\": \"aaaaaaaa-0000-0000-0000-000000000000\"}",
+    "ResponseBody": "{\"id\": \"aaaaaaaa-0000-0000-0000-000000000001\", \"flow_id\": \"aaaaaaaa-0000-0000-0000-000000000000\", \"name\": \"retry-test-run-1748169600\", \"state_type\": \"SCHEDULED\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-05-25T08:57:00.019Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"state\": {\"type\": \"FAILED\", \"message\": \"Intentional failure for retry test\"}, \"force\": true}",
+    "ResponseBody": "{\"status\": \"ACCEPT\", \"state\": {\"type\": \"FAILED\", \"name\": \"Failed\"}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/aaaaaaaa-0000-0000-0000-000000000001/set_state",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 4200,
+    "Timestamp": "2026-05-25T08:57:00.019Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"reason\": \"Retry test\", \"parameters\": {}}",
+    "ResponseBody": "{\"id\": \"aaaaaaaa-0000-0000-0000-000000000001\", \"state\": \"SCHEDULED\", \"message\": \"Retry test\"}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/api/flow_runs/aaaaaaaa-0000-0000-0000-000000000001/retry",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 4200,
+    "Timestamp": "2026-05-25T08:57:00.019Z",
+    "Scheme": "http"
+  }
+]
